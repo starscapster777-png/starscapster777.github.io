@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hasan Alp | Kişisel Web Sitesi</title>
+  <meta name="description" content="Hasan Alp - Mütercim Tercümanlık Öğrencisi, Çevirmen & İçerik Üreticisi">
+
+  <!-- Google Fonts: Rock & Grunge atmosferi için sert ve alternatif fontlar -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Permanent+Marker&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800&family=Work+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       1. CSS DEĞİŞKENLERİ (RENKLER VE TEMA AYARLARI)
+       Yeşil (Acid/Slime Green) ve Mor (Deep & Electric Purple) Grunge Paleti
+       ========================================================= */
+    :root {
+      --bg-dark: #09060f;
+      --bg-card: rgba(20, 12, 33, 0.85);
+      --bg-card-border: #2a1b45;
+      
+      /* Rock & Grunge Neon / Acid Renkleri */
+      --green-primary: #39ff14;   /* Asit / Neon yeşili */
+      --green-glow: rgba(57, 255, 20, 0.45);
+      --purple-primary: #b537f2;  /* Elektrik moru */
+      --purple-dark: #1b0a2a;
+      --purple-glow: rgba(181, 55, 242, 0.45);
+      
+      --text-main: #f0f0f5;
+      --text-muted: #a39cb5;
+      --tape-color: rgba(220, 205, 175, 0.22);
+      
+      --font-display: 'Syne', sans-serif;
+      --font-marker: 'Permanent Marker', cursive;
+      --font-mono: 'Space Mono', monospace;
+      --font-body: 'Work Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      position: relative;
+      overflow-x: hidden;
+      min-height: 100vh;
+      /* Grunge Arka Plan: Gren (Noise) dokusu ve radyal parlamalar */
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(181, 55, 242, 0.15) 0%, transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(57, 255, 20, 0.12) 0%, transparent 40%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.06'/%3E%3C/svg%3E");
+    }
+
+    /* Kaset Bandı Efekti (Washi Tape) */
+    .grunge-tape {
+      position: absolute;
+      width: 110px;
+      height: 24px;
+      background: var(--tape-color);
+      backdrop-filter: blur(2px);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+      border-left: 2px dashed rgba(255,255,255,0.2);
+      border-right: 2px dashed rgba(255,255,255,0.2);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .tape-top-left { top: -12px; left: 16px; transform: rotate(-5deg); }
+    .tape-top-right { top: -12px; right: 16px; transform: rotate(4deg); }
+
+    /* Sayfa Kapsayıcısı */
+    .container {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 20px 80px 20px;
+    }
+
+    /* =========================================================
+       2. ÜST MENÜ & DİL SEÇİCİ (NAVBAR)
+       ========================================================= */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0 28px 0;
+      border-bottom: 2px dashed var(--bg-card-border);
+      position: relative;
+    }
+
+    .brand-tag {
+      font-family: var(--font-marker);
+      font-size: 1.35rem;
+      color: var(--green-primary);
+      text-shadow: 2px 2px 0px #000, 0 0 12px var(--green-glow);
+      letter-spacing: 1px;
+      transform: rotate(-2deg);
+      display: inline-block;
+    }
+
+    .lang-switcher-btn {
+      background: #150924;
+      border: 2px solid var(--purple-primary);
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 8px 16px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 2px;
+      box-shadow: 3px 3px 0 var(--green-primary);
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+    }
+
+    .lang-switcher-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 var(--green-primary);
+      background: var(--purple-primary);
+      color: #fff;
+    }
+
+    .lang-switcher-btn:active {
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px 0 var(--green-primary);
+    }
+
+    .lang-indicator {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green-primary);
+      box-shadow: 0 0 8px var(--green-primary);
+    }
+
+    /* =========================================================
+       3. HERO / GİRİŞ BÖLÜMÜ
+       ========================================================= */
+    .hero {
+      padding: 50px 0 35px 0;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: rgba(181, 55, 242, 0.15);
+      border: 1px solid var(--purple-primary);
+      color: var(--purple-primary);
+      padding: 4px 12px;
+      margin-bottom: 18px;
+      border-radius: 2px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 7vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      margin-bottom: 14px;
+      color: #fff;
+      text-shadow: 3px 3px 0px #130321;
+    }
+
+    .hero-title span.accent-green {
+      color: var(--green-primary);
+      text-shadow: 3px 3px 0px #130321, 0 0 16px var(--green-glow);
+    }
+
+    .hero-title span.accent-purple {
+      color: var(--purple-primary);
+      text-shadow: 3px 3px 0px #130321, 0 0 16px var(--purple-glow);
+    }
+
+    /* Siteye Özel Dokunuş: Farklı İlgiler Vurgusu */
+    .manifesto-box {
+      margin: 20px 0;
+      padding: 16px 20px;
+      background: linear-gradient(135deg, rgba(27, 10, 42, 0.9), rgba(15, 26, 17, 0.85));
+      border-left: 4px solid var(--green-primary);
+      border-right: 4px solid var(--purple-primary);
+      position: relative;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+    }
+
+    .manifesto-quote {
+      font-family: var(--font-marker);
+      font-size: clamp(1.2rem, 3.5vw, 1.7rem);
+      color: #fff;
+      letter-spacing: 1px;
+      line-height: 1.4;
+      text-shadow: 1px 1px 0 #000;
+    }
+
+    .manifesto-sub {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--green-primary);
+      margin-top: 6px;
+      display: block;
+    }
+
+    .education-tag {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .education-tag .uni-pill {
+      background: #1e1333;
+      color: #e5d8ff;
+      border: 1px solid #432a6f;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.95rem;
+    }
+
+    /* Çalışma Dilleri Rozetleri */
+    .languages-bar {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .languages-label {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .lang-pill {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 2px;
+      background: #11081f;
+      border: 1px solid var(--purple-primary);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .lang-pill.highlight {
+      border-color: var(--green-primary);
+      color: var(--green-primary);
+    }
+
+    /* =========================================================
+       4. GENEL BÖLÜM STİLLERİ (SECTIONS & CARDS)
+       ========================================================= */
+    section {
+      margin-top: 55px;
+      position: relative;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+      border-bottom: 2px solid #23163a;
+      padding-bottom: 10px;
+    }
+
+    .section-num {
+      font-family: var(--font-mono);
+      color: var(--purple-primary);
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #fff;
+    }
+
+    .section-title::after {
+      content: "//";
+      color: var(--green-primary);
+      margin-left: 8px;
+    }
+
+    /* Grunge Kart Yapısı */
+    .grunge-card {
+      background: var(--bg-card);
+      border: 2px solid var(--bg-card-border);
+      border-radius: 4px;
+      padding: 24px;
+      position: relative;
+      box-shadow: 6px 6px 0px rgba(0,0,0,0.7);
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .grunge-card:hover {
+      border-color: var(--purple-primary);
+      box-shadow: 8px 8px 0px rgba(181, 55, 242, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* =========================================================
+       5. ÖZEL DOKUNUŞ: FARKLI İLGİLER / NİTELİK ETİKETLERİ
+       ========================================================= */
+    .interests-nexus {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .nexus-item {
+      background: #130a22;
+      border-left: 3px solid var(--purple-primary);
+      padding: 14px 16px;
+      border-radius: 2px;
+    }
+
+    .nexus-item.alt {
+      border-left-color: var(--green-primary);
+    }
+
+    .nexus-item-title {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .nexus-item-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* =========================================================
+       6. HAKKIMDA (ABOUT) BÖLÜMÜ
+       ========================================================= */
+    .about-text {
+      font-size: 1.05rem;
+      color: #e0dbe9;
+      line-height: 1.8;
+    }
+
+    .about-text p {
+      margin-bottom: 14px;
+    }
+
+    .about-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .about-highlight {
+      color: var(--green-primary);
+      font-weight: 600;
+    }
+
+    /* =========================================================
+       7. PROJELER (PROJECTS) BÖLÜMÜ
+       ========================================================= */
+    .project-card {
+      position: relative;
+      border-left: 4px solid var(--green-primary);
+      background: linear-gradient(145deg, #160c29 0%, #0d0617 100%);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .project-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      background: rgba(57, 255, 20, 0.12);
+      color: var(--green-primary);
+      border: 1px solid var(--green-primary);
+      padding: 3px 10px;
+      border-radius: 2px;
+      text-transform: uppercase;
+    }
+
+    .project-desc {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+
+    .project-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #000;
+      background: var(--green-primary);
+      padding: 8px 16px;
+      text-decoration: none;
+      border-radius: 2px;
+      box-shadow: 3px 3px 0 var(--purple-primary);
+      transition: all 0.2s ease;
+    }
+
+    .project-link-btn:hover {
+      background: #fff;
+      box-shadow: 4px 4px 0 var(--purple-primary);
+      transform: translateY(-2px);
+    }
+
+    /* =========================================================
+       8. BECERİLER (SKILLS) BÖLÜMÜ
+       ========================================================= */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+    }
+
+    .skill-card {
+      background: #130a22;
+      border: 1px solid var(--bg-card-border);
+      padding: 16px;
+      border-radius: 3px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--purple-primary);
+    }
+
+    .skill-card.alt::before {
+      background: var(--green-primary);
+    }
+
+    .skill-category {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--purple-primary);
+      margin-bottom: 6px;
+    }
+    .skill-card.alt .skill-category {
+      color: var(--green-primary);
+    }
+
+    .skill-name {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .skill-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* =========================================================
+       9. DENEYİM (EXPERIENCE) BÖLÜMÜ
+       ========================================================= */
+    .experience-placeholder-card {
+      border: 2px dashed #3a2559;
+      background: rgba(19, 10, 34, 0.4);
+      padding: 24px;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .placeholder-badge {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #df9aff;
+      background: rgba(181, 55, 242, 0.15);
+      padding: 4px 10px;
+      border-radius: 2px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .placeholder-text {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* =========================================================
+       10. İLGİ ALANLARI / HOBİLER (INTERESTS / HOBBIES)
+       ========================================================= */
+    .hobbies-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hobby-sticker {
+      background: #140a24;
+      border: 1px solid #3d2466;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-family: var(--font-mono);
+      font-size: 0.92rem;
+      color: #e5d8ff;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+      transition: all 0.2s ease;
+    }
+
+    .hobby-sticker:hover {
+      transform: scale(1.04) rotate(-1deg);
+      border-color: var(--green-primary);
+      color: #fff;
+      box-shadow: 4px 4px 0 var(--green-glow);
+    }
+
+    .hobby-icon {
+      color: var(--green-primary);
+      font-size: 1.1rem;
+    }
+
+    /* =========================================================
+       11. İLETİŞİM (CONTACT) BÖLÜMÜ & FOOTER
+       ========================================================= */
+    .contact-card {
+      background: linear-gradient(135deg, #180d2d 0%, #0d0619 100%);
+      border: 2px solid var(--purple-primary);
+      box-shadow: 8px 8px 0px rgba(0,0,0,0.8);
+      text-align: center;
+      padding: 36px 20px;
+    }
+
+    .contact-heading {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .contact-subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .contact-btn {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      background: #000;
+      border: 2px solid var(--green-primary);
+      padding: 12px 24px;
+      border-radius: 3px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 4px 4px 0 var(--green-glow);
+      transition: all 0.2s ease;
+    }
+
+    .contact-btn:hover {
+      background: var(--green-primary);
+      color: #000;
+      box-shadow: 6px 6px 0 var(--purple-primary);
+      transform: translate(-2px, -2px);
+    }
+
+    .contact-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #6d6380;
+      border-top: 1px dashed #2a1945;
+      padding-top: 24px;
+    }
+
+    /* Responsive İyileştirmeler (Mobil Cihazlar İçin) */
+    @media (max-width: 600px) {
+      .container {
+        padding: 16px 14px 60px 14px;
+      }
+      .grunge-card {
+        padding: 18px 14px;
+      }
+      .manifesto-box {
+        padding: 14px;
+      }
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- =========================================================
+         ÜST BAŞLIK & DİL SEÇİM BUTONU (TR / EN)
+         ========================================================= -->
+    <header>
+      <div class="brand-tag">HA // ROCK &amp; TRANSLATE</div>
+      <button id="langToggleBtn" class="lang-switcher-btn" aria-label="Dili Değiştir / Switch Language">
+        <span class="lang-indicator"></span>
+        <span id="langBtnText">EN / TR</span>
+      </button>
+    </header>
+
+    <!-- =========================================================
+         HERO / GİRİŞ ALANI (BEN KİMİM)
+         ========================================================= -->
+    <section class="hero">
+      <div class="hero-badge" data-tr="MÜTERCİM TERCÜMANLIK &bull; 4. SINIF" data-en="TRANSLATION &amp; INTERPRETING &bull; SENIOR">
+        MÜTERCİM TERCÜMANLIK &bull; 4. SINIF
+      </div>
+      
+      <h1 class="hero-title">
+        <span class="accent-purple">HASAN</span> <span class="accent-green">ALP</span>
+      </h1>
+
+      <!-- Özel Dokunuş: Farklı İlgiler Vurgusu -->
+      <div class="manifesto-box">
+        <div class="grunge-tape tape-top-left"></div>
+        <div class="grunge-tape tape-top-right"></div>
+        <div class="manifesto-quote" data-tr="&ldquo;Farklı ilgiler, Tek zihin.&rdquo;" data-en="&ldquo;Diverse interests, One mind.&rdquo;">
+          &ldquo;Farklı ilgiler, Tek zihin.&rdquo;
+        </div>
+        <div class="manifesto-sub" data-tr="[Çok Yönlü Zihin &bull; Dil, Oyun &amp; Kültür]" data-en="[Multifaceted Mind &bull; Language, Gaming &amp; Culture]">
+          [Çok Yönlü Zihin &bull; Dil, Oyun &amp; Kültür]
+        </div>
+      </div>
+
+      <div class="education-tag">
+        <span data-tr="Üniversite:" data-en="University:">Üniversite:</span>
+        <span class="uni-pill">İstanbul Yeni Yüzyıl Üniversitesi</span>
+        <span data-tr="&bull; Mütercim Tercümanlık (4. Sınıf)" data-en="&bull; Translation and Interpreting (4th Year)">
+          &bull; Mütercim Tercümanlık (4. Sınıf)
+        </span>
+      </div>
+
+      <!-- Çalışma Dilleri -->
+      <div class="languages-bar">
+        <span class="languages-label" data-tr="Çalışma Dillerim:" data-en="Working Languages:">Çalışma Dillerim:</span>
+        <span class="lang-pill highlight">🇬🇧 İngilizce (EN)</span>
+        <span class="lang-pill highlight">🇹🇷 Türkçe (TR)</span>
+        <span class="lang-pill">🇮🇹 İtalyanca (IT)</span>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         BÖLÜM 1: HAKKIMDA
+         ========================================================= -->
+    <section id="hakkimda">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2 class="section-title" data-tr="Hakkımda" data-en="About Me">Hakkımda</h2>
+      </div>
+
+      <div class="grunge-card">
+        <div class="about-text">
+          <p data-tr="İstanbul Yeni Yüzyıl Üniversitesi Mütercim Tercümanlık 4. sınıf öğrencisiyim. En büyük tutkum ve amacım, Türkiye'de İngilizce kültürünü ve yabancı dil bilincini geliştirmek, dili sadece gramer kurallarıyla değil yaşayan bir kültür olarak aktarmaktır."
+             data-en="I am a senior Translation and Interpreting student at Istanbul Yeni Yüzyıl University. My primary goal and passion is to enrich English culture and awareness across Turkey, presenting language not merely as grammar rules but as a living, breathing culture.">
+            İstanbul Yeni Yüzyıl Üniversitesi Mütercim Tercümanlık 4. sınıf öğrencisiyim. En büyük tutkum ve amacım, Türkiye'de İngilizce kültürünü ve yabancı dil bilincini geliştirmek, dili sadece gramer kurallarıyla değil yaşayan bir kültür olarak aktarmaktır.
+          </p>
+          <p data-tr="Video oyunlarını ve interaktif medyayı insanlarla iletişim kurmanın, kültürler arası köprüler kurmanın ve küresel topluluklarla bağ kurmanın en güçlü aracı olarak görüyorum. Farklı disiplinlerden edindiğim merakı çeviri ve iletişim süreçleriyle harmanlayarak projelerime yansıtıyorum."
+             data-en="I view video games and interactive media as one of the most potent mediums to converse with people, bridge cultural gaps, and build connections with global communities. I channel curiosity from diverse disciplines directly into translation and communication processes.">
+            Video oyunlarını ve interaktif medyayı insanlarla iletişim kurmanın, kültürler arası köprüler kurmanın ve küresel topluluklarla bağ kurmanın en güçlü aracı olarak görüyorum. Farklı disiplinlerden edindiğim merakı çeviri ve iletişim süreçleriyle harmanlayarak projelerime yansıtıyorum.
+          </p>
+        </div>
+
+        <!-- Siteye Özel Dokunuş: "Farklı İlgiler" Çapraz İlgi Alanları Haritası -->
+        <div class="interests-nexus">
+          <div class="nexus-item">
+            <div class="nexus-item-title">
+              <span>⚡</span> <span data-tr="Dil &amp; Kültür" data-en="Language &amp; Culture">Dil &amp; Kültür</span>
+            </div>
+            <div class="nexus-item-desc" data-tr="İngilizceyi kültürel dinamikleri ve sokak/oyun diliyle yaşatma vizyonu." data-en="Vision to bring English to life with its cultural dynamics and vernacular.">
+              İngilizceyi kültürel dinamikleri ve sokak/oyun diliyle yaşatma vizyonu.
+            </div>
+          </div>
+          <div class="nexus-item alt">
+            <div class="nexus-item-title">
+              <span>🎮</span> <span data-tr="Oyunlar &amp; İletişim" data-en="Gaming &amp; Discourse">Oyunlar &amp; İletişim</span>
+            </div>
+            <div class="nexus-item-desc" data-tr="Oyun dünyası üzerinden insanlarla etkileşim ve yerelleştirme köprüsü." data-en="Interacting with people through gaming worlds and localization bridges.">
+              Oyun dünyası üzerinden insanlarla etkileşim ve yerelleştirme köprüsü.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         BÖLÜM 2: PROJELERİM / ÇALIŞMALARIM
+         ========================================================= -->
+    <section id="projeler">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2 class="section-title" data-tr="Projelerim &amp; Çalışmalarım" data-en="Projects &amp; Works">Projelerim &amp; Çalışmalarım</h2>
+      </div>
+
+      <!-- Gamer's Delight Projesi -->
+      <div class="grunge-card project-card">
+        <div class="project-header">
+          <div>
+            <h3 class="project-title">Gamer's Delight</h3>
+            <span class="project-badge" data-tr="Oyun &amp; Çeviri Girişimi" data-en="Gaming &amp; Translation Project">Oyun &amp; Çeviri Girişimi</span>
+          </div>
+        </div>
+        <p class="project-desc" 
+           data-tr="Oyun kültürü, yerelleştirme ve oyuncuların birbiriyle iletişim kurmasını destekleyen, İngilizce oyun terminolojisi ve kültürünü harmanlayan özel çalışma/proje."
+           data-en="A dedicated project blending gaming culture, localization, and community communication to foster English gaming culture and terminology.">
+          Oyun kültürü, yerelleştirme ve oyuncuların birbiriyle iletişim kurmasını destekleyen, İngilizce oyun terminolojisi ve kültürünü harmanlayan özel çalışma/proje.
+        </p>
+        
+        <!-- Eğer projenin canlı bağlantısı varsa href içine ekleyebilirsin -->
+        <div>
+          <a href="#" class="project-link-btn" title="Gamer's Delight Bağlantısı">
+            <span>🔗</span>
+            <span data-tr="Projeyi İncele [buraya bağlantı ekle]" data-en="View Project [add link here]">Projeyi İncele [buraya bağlantı ekle]</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         BÖLÜM 3: BECERİLERİM
+         ========================================================= -->
+    <section id="beceriler">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2 class="section-title" data-tr="Becerilerim" data-en="Skills">Becerilerim</h2>
+      </div>
+
+      <div class="skills-grid">
+        <!-- CAT Araçları -->
+        <div class="skill-card">
+          <div class="skill-category" data-tr="Çeviri Teknolojisi" data-en="Translation Tech">Çeviri Teknolojisi</div>
+          <div class="skill-name">CAT Araçları</div>
+          <div class="skill-desc">SDL Trados Studio, memoQ</div>
+        </div>
+
+        <!-- Altyazı -->
+        <div class="skill-card alt">
+          <div class="skill-category" data-tr="Görsel-İşitsel" data-en="Audiovisual">Görsel-İşitsel</div>
+          <div class="skill-name" data-tr="Altyazı Çevirisi" data-en="Subtitling">Altyazı Çevirisi</div>
+          <div class="skill-desc" data-tr="Senkronizasyon, zamanlama ve diyalog uyarlaması" data-en="Synchronization, spotting &amp; dialogue adaptation">Senkronizasyon, zamanlama ve diyalog uyarlaması</div>
+        </div>
+
+        <!-- Terminoloji -->
+        <div class="skill-card">
+          <div class="skill-category" data-tr="Dil Bilimi" data-en="Linguistics">Dil Bilimi</div>
+          <div class="skill-name" data-tr="Terminoloji Yönetimi" data-en="Terminology Management">Terminoloji Yönetimi</div>
+          <div class="skill-desc" data-tr="Sözlükçe hazırlama, terim tutarlılığı" data-en="Glossary building &amp; consistency checking">Sözlükçe hazırlama, terim tutarlılığı</div>
+        </div>
+
+        <!-- Tasarım & Medya -->
+        <div class="skill-card alt">
+          <div class="skill-category" data-tr="Tasarım &amp; Medya" data-en="Design &amp; Media">Tasarım &amp; Medya</div>
+          <div class="skill-name">Canva &amp; İçerik Düzenleme</div>
+          <div class="skill-desc" data-tr="Görsel sunumlar ve grafik düzenleme" data-en="Visual presentations &amp; graphic creation">Görsel sunumlar ve grafik düzenleme</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         BÖLÜM 4: DENEYİM (STAJ, GÖNÜLLÜ ÇEVİRİ, KULÜP VB.)
+         ========================================================= -->
+    <section id="deneyim">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2 class="section-title" data-tr="Deneyim" data-en="Experience">Deneyim</h2>
+      </div>
+
+      <div class="experience-placeholder-card">
+        <span class="placeholder-badge" data-tr="DENEYİM BÖLÜMÜ" data-en="EXPERIENCE SECTION">DENEYİM BÖLÜMÜ</span>
+        <p class="placeholder-text" 
+           data-tr="[Staj, gönüllü çeviri, kulüp veya iş deneyimlerini buraya ekle - şu anda güncellenmektedir]"
+           data-en="[Add internships, volunteer translation, student clubs, or work experience here - currently updating]">
+          [Staj, gönüllü çeviri, kulüp veya iş deneyimlerini buraya ekle - şu anda güncellenmektedir]
+        </p>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         BÖLÜM 5: İLGİ ALANLARIM & HOBİLERİM
+         ========================================================= -->
+    <section id="hobiler">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <h2 class="section-title" data-tr="İlgi Alanlarım &amp; Hobilerim" data-en="Interests &amp; Hobbies">İlgi Alanlarım &amp; Hobilerim</h2>
+      </div>
+
+      <div class="grunge-card">
+        <div class="hobbies-wrapper">
+          <div class="hobby-sticker">
+            <span class="hobby-icon">🎬</span>
+            <span data-tr="Dizi &amp; Film Altyazısı" data-en="TV Series &amp; Movie Subtitling">Dizi &amp; Film Altyazısı</span>
+          </div>
+
+          <div class="hobby-sticker">
+            <span class="hobby-icon">📷</span>
+            <span data-tr="Fotoğrafçılık" data-en="Photography">Fotoğrafçılık</span>
+          </div>
+
+          <div class="hobby-sticker">
+            <span class="hobby-icon">🏐</span>
+            <span data-tr="Voleybol" data-en="Volleyball">Voleybol</span>
+          </div>
+
+          <div class="hobby-sticker">
+            <span class="hobby-icon">🎮</span>
+            <span data-tr="Video Oyunları &amp; Topluluklar" data-en="Video Gaming &amp; Communities">Video Oyunları &amp; Topluluklar</span>
+          </div>
+
+          <div class="hobby-sticker">
+            <span class="hobby-icon">🎸</span>
+            <span data-tr="Rock &amp; Alternatif Müzik" data-en="Rock &amp; Alternative Music">Rock &amp; Alternatif Müzik</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         BÖLÜM 6: İLETİŞİM
+         ========================================================= -->
+    <section id="iletisim">
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <h2 class="section-title" data-tr="İletişim" data-en="Contact">İletişim</h2>
+      </div>
+
+      <div class="grunge-card contact-card">
+        <div class="grunge-tape tape-top-left"></div>
+        <div class="grunge-tape tape-top-right"></div>
+        <h3 class="contact-heading" data-tr="Birlikte Çalışalım" data-en="Let's Connect">Birlikte Çalışalım</h3>
+        <p class="contact-subtitle" 
+           data-tr="Çeviri projeleri, oyun yerelleştirmeleri ve iş birlikleri için iletişime geçebilirsiniz."
+           data-en="Reach out for translation projects, game localization, and creative collaborations.">
+          Çeviri projeleri, oyun yerelleştirmeleri ve iş birlikleri için iletişime geçebilirsiniz.
+        </p>
+
+        <div class="contact-links">
+          <!-- Hasan Alp GitHub Bağlantısı -->
+          <!-- Not: Buradaki URL'yi kendi tam github profiline göre güncelleyebilirsin (örn. https://github.com/hasanalp) -->
+          <a href="https://github.com/[buraya-github-kullanici-adiniz]" target="_blank" rel="noopener noreferrer" class="contact-btn">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+            <span>Hasan Alp (GitHub)</span>
+          </a>
+
+          <!-- E-posta İletişim Butonu (İsteğe bağlı doldurabilirsin) -->
+          <a href="mailto:[buraya-epostanizi-ekleyin]" class="contact-btn">
+            <span>✉️</span>
+            <span>E-Posta [buraya ekle]</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>&copy; 2026 Hasan Alp &bull; Rock &amp; Grunge Temalı Kişisel Portfolyo &bull; &ldquo;Farklı ilgiler, Tek zihin.&rdquo;</p>
+    </footer>
+
+  </div>
+
+  <!-- =========================================================
+       JAVASCRIPT (DİL DEĞİŞTİRİCİ TR / EN KONTROLÜ)
+       ========================================================= -->
+  <script>
+    // Başlangıç dili Türkçe (TR)
+    let currentLang = 'tr';
+
+    const langToggleBtn = document.getElementById('langToggleBtn');
+    const langBtnText = document.getElementById('langBtnText');
+
+    // Sayfadaki data-tr ve data-en özniteliği taşıyan tüm öğeleri seç
+    function switchLanguage() {
+      currentLang = (currentLang === 'tr') ? 'en' : 'tr';
+
+      // Buton üstündeki metni güncelle
+      if (currentLang === 'tr') {
+        langBtnText.textContent = 'TR ➔ EN';
+        document.documentElement.lang = 'tr';
+      } else {
+        langBtnText.textContent = 'EN ➔ TR';
+        document.documentElement.lang = 'en';
+      }
+
+      // data-tr ve data-en olan elemanların metnini değiştir
+      const translatableElements = document.querySelectorAll('[data-tr]');
+      translatableElements.forEach(el => {
+        const text = el.getAttribute(`data-${currentLang}`);
+        if (text) {
+          el.innerHTML = text;
+        }
+      });
+    }
+
+    // Butona tıklandığında dili değiştir
+    langToggleBtn.addEventListener('click', switchLanguage);
+
+    // İlk buton metni ayarı
+    langBtnText.textContent = 'TR ➔ EN';
+  </script>
+</body>
+</html>
